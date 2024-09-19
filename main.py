@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 
+from EditorMetadata import AppMetadataEditor
+
 
 class App(tk.Tk):
     def __init__(self):
@@ -13,16 +15,23 @@ class App(tk.Tk):
         self.geometry('800x450')
         self.resizable(False, False)
 
-        # Создание виджетов
-        btn_metadata = ttk.Button(self, text="Редактор метаинформации")
-        btn_converting = ttk.Button(self, text="Конвертация файлов")
+        # <<-- Команды виджитов -->>
+        def open_metadata():
+            pass
 
-        # Расположение виджетов
+        def open_converting():
+            pass
+
+        # <<-- Создание виджетов -->>
+        btn_metadata = ttk.Button(self, text="Редактор метаинформации", command=open_metadata)
+        btn_converting = ttk.Button(self, text="Конвертация файлов", command=open_converting)
+
+        # <<-- Расположение виджетов -->>
         btn_metadata.grid(row=0, column=0)
         btn_converting.grid(row=0, column=1)
 
 
-# Запуск приложения
+# <<-- Запуск приложения -->>
 if __name__ == "__main__":
-    app = App()
+    app = AppMetadataEditor()
     app.mainloop()
