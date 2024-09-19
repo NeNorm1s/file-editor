@@ -1,7 +1,7 @@
 import os
 import tkinter as tk
 from tkinter import *
-from tkinter import ttk, filedialog, messagebox
+from tkinter import ttk, filedialog, messagebox, Variable, StringVar, BooleanVar, Listbox
 
 
 class AppMetadataEditor(tk.Tk):
@@ -80,7 +80,7 @@ class AppMetadataEditor(tk.Tk):
         # <<-- Создание виджетов -->>
         frm_dir = ttk.Frame(self)
         frm_file = ttk.Frame(self)
-        frm_metadata = ttk.Frame(self)
+        # frm_metadata = ttk.Frame(self)
 
         lsb_dir_audios = Listbox(frm_dir, listvariable=audios)
         lbl_dir_files = ttk.Label(frm_dir, text="Директория:")
@@ -89,9 +89,30 @@ class AppMetadataEditor(tk.Tk):
         lbl_dir_type = ttk.Label(frm_dir, text="Расширение:")
         cmb_dir_type = ttk.Combobox(frm_dir, textvariable=file_type, values=file_types, width=5)
 
-        lbl_file_title = ttk.Label(frm_file, text="Название:")
+        lbl_file_title = ttk.Label(frm_file, text="Название файла:")
         ent_file_title = ttk.Entry(frm_file, textvariable=file_name)
+        lbl_md_track_number = ttk.Label(frm_file, text="Номер трека:")
+        ent_md_track_number = ttk.Entry(frm_file, textvariable=md_track_number)
+        lbl_md_title = ttk.Label(frm_file, text="Название трека:")
+        ent_md_title = ttk.Entry(frm_file, textvariable=md_title)
+        lbl_md_album = ttk.Label(frm_file, text="Альбом:")
+        ent_md_album = ttk.Entry(frm_file, textvariable=md_album)
+        lbl_md_artist = ttk.Label(frm_file, text="Исполнители:")
+        ent_md_artist = ttk.Entry(frm_file, textvariable=md_artist)
+        lbl_md_artist_album = ttk.Label(frm_file, text="Исполнители альбома:")
+        ent_md_artist_album = ttk.Entry(frm_file, textvariable=md_artist_album)
+        lbl_md_organization = ttk.Label(frm_file, text="Издатель:")
+        ent_md_organization = ttk.Entry(frm_file, textvariable=md_organization)
+        lbl_md_copyright = ttk.Label(frm_file, text="Авторские права:")
+        ent_md_copyright = ttk.Entry(frm_file, textvariable=md_copyright)
+        lbl_md_composer = ttk.Label(frm_file, text="Композитор:")
+        ent_md_composer = ttk.Entry(frm_file, textvariable=md_composer)
+        lbl_md_conductor = ttk.Label(frm_file, text="Дирижёр:")
+        ent_md_conductor = ttk.Entry(frm_file, textvariable=md_conductor)
+        lbl_md_grouping = ttk.Label(frm_file, text="Описание группы:")
+        ent_md_grouping = ttk.Entry(frm_file, textvariable=md_grouping)
 
+        # Настройка виджетов
         dir_files.trace('w', TypingPathDir)
 
         cmb_dir_type.bind('<<ComboboxSelected>>', Select_type)
@@ -99,18 +120,36 @@ class AppMetadataEditor(tk.Tk):
 
         # <<-- Расположение виджетов -->>
         # Фрейм директории
-        frm_dir.grid(row=0, column=0)
-        lbl_dir_files.grid(row=0, column=0)
-        ent_dir_files.grid(row=0, column=1)
-        btn_dir_files.grid(row=0, column=2)
-        lbl_dir_type.grid(row=1, column=0)
-        cmb_dir_type.grid(row=1, column=1)
-        lsb_dir_audios.grid(row=0, column=3, rowspan=2, columnspan=2)
+        frm_dir.grid(row=0, column=0, sticky=W)
+        lbl_dir_files.grid(row=0, column=0, sticky=W)
+        ent_dir_files.grid(row=0, column=1, sticky=W)
+        btn_dir_files.grid(row=0, column=2, sticky=W)
+        lbl_dir_type.grid(row=1, column=0, sticky=W)
+        cmb_dir_type.grid(row=1, column=1, sticky=W)
+        lsb_dir_audios.grid(row=5, column=0, rowspan=2, columnspan=3, sticky=NSEW)
         # Фрейм файла
-        frm_file.grid(row=1, column=0)
-        lbl_file_title.grid(row=0, column=0)
-        ent_file_title.grid(row=0, column=1)
-
-        frm_metadata.grid(row=1, column=1)
+        frm_file.grid(row=0, column=1, sticky=W)
+        lbl_file_title.grid(row=0, column=0, sticky=W)
+        ent_file_title.grid(row=0, column=1, sticky=W)
+        lbl_md_track_number.grid(row=1, column=0, sticky=W)
+        ent_md_track_number.grid(row=1, column=1, sticky=W)
+        lbl_md_title.grid(row=2, column=0, sticky=W)
+        ent_md_title.grid(row=2, column=1, sticky=W)
+        lbl_md_album.grid(row=3, column=0, sticky=W)
+        ent_md_album.grid(row=3, column=1, sticky=W)
+        lbl_md_artist.grid(row=4, column=0, sticky=W)
+        ent_md_artist.grid(row=4, column=1, sticky=W)
+        lbl_md_artist_album.grid(row=5, column=0, sticky=W)
+        ent_md_artist_album.grid(row=5, column=1, sticky=W)
+        lbl_md_organization.grid(row=6, column=0, sticky=W)
+        ent_md_organization.grid(row=6, column=1, sticky=W)
+        lbl_md_copyright.grid(row=7, column=0, sticky=W)
+        ent_md_copyright.grid(row=7, column=1, sticky=W)
+        lbl_md_composer.grid(row=8, column=0, sticky=W)
+        ent_md_composer.grid(row=8, column=1, sticky=W)
+        lbl_md_conductor.grid(row=9, column=0, sticky=W)
+        ent_md_conductor.grid(row=9, column=1, sticky=W)
+        lbl_md_grouping.grid(row=10, column=0, sticky=W)
+        ent_md_grouping.grid(row=10, column=1, sticky=W)
 
         ReloadWidgets()
