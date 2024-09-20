@@ -3,6 +3,11 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk, filedialog, messagebox, Variable, StringVar, BooleanVar, Listbox
 
+import mutagen
+from mutagen.easyid3 import EasyID3
+from mutagen.mp3 import MP3
+from mutagen.id3 import ID3, APIC
+
 
 class AppMetadataEditor(tk.Tk):
     def __init__(self):
@@ -19,7 +24,7 @@ class AppMetadataEditor(tk.Tk):
         file_name = StringVar()
 
         audios = Variable(value=[])
-        audio_selected = Variable()
+        file_selected = Variable()
 
         dir_files = Variable()
 
@@ -61,21 +66,45 @@ class AppMetadataEditor(tk.Tk):
 
         def Select_file(event):
             pass
+            # try:
+            #     # audio_metadata = MP3(str(f"{dir_files.get()}/{lsb_dir_audios.get(lsb_dir_audios.curselection())}"))
+            #     audio_metadata = EasyID3(str(f"{dir_files.get()}/{lsb_dir_audios.get(lsb_dir_audios.curselection())}"))
+            #     # audio_metadata = mutagen.File(str(f"{dir_files.get()}/{lsb_dir_audios.get(lsb_dir_audios.curselection())}"))
+            #     file_selected.set(lsb_dir_audios.get(lsb_dir_audios.curselection()))
+            #     file_name.set(str(lsb_dir_audios.get(lsb_dir_audios.curselection()))[:-4])
+
+#                 # print(mutagen.Metadata(str(f"{dir_files.get()}/{lsb_dir_audios.get(lsb_dir_audios.curselection())}")))
+
+#                 def set(var, tag):
+#                     if audio_metadata.get(tag):
+#                         var.set(audio_metadata.get(tag))
+#                     else:
+#                         var.set("")
+
+#                 set(md_track_number, 'tracknumber')
+#                 set(md_title, 'title')
+#                 set(md_album, 'album')
+#                 set(md_artist, 'artist')
+#                 set(md_artist_album, 'albumartist')
+#                 set(md_organization, 'organization')
+#                 set(md_copyright, 'copyright')
+#                 set(md_composer, 'composer')
+#                 set(md_conductor, 'conductor')
+#                 set(md_grouping, 'grouping')
+#             except TclError:
+#                 pass
 
         def Select():
             # Обновление списка аудио файлов
-            def list_update():
-                arr = []
-                try:
-                    for i in os.listdir(dir_files.get()):
-                        if i.endswith(file_type.get()):
-                            arr.append(i)
-                    audios.set(arr)
-                    ReloadWidgets()
-                except FileNotFoundError:
-                    ReloadWidgets()
-
-            list_update()
+            arr = []
+            try:
+                for i in os.listdir(dir_files.get()):
+                    if i.endswith(file_type.get()):
+                        arr.append(i)
+                audios.set(arr)
+                ReloadWidgets()
+            except FileNotFoundError:
+                ReloadWidgets()
 
         # <<-- Создание виджетов -->>
         frm_dir = ttk.Frame(self)
